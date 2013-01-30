@@ -1,47 +1,33 @@
 require "socket"
 require "math"
-local bump = require 'bump'
-bump.initialize(5)
+ProFi = require 'ProFi'
+ProFi:start()
+-- Collision detection function.
+-- Checks if a and b overlap.
+-- w and h mean width and height.
+function CheckCollision(ax1,ay1,aw,ah, bx1,by1,bw,bh)
+  local ax2,ay2,bx2,by2 = ax1 + aw, ay1 + ah, bx1 + bw, by1 + bh
+  return ax1 < bx2 and ax2 > bx1 and ay1 < by2 and ay2 > by1
+end
 
-function bump.collision(item1, item2, dx, dy)
-    if string.find(item1.name, "enemie_", 1) and string.find(item2.name, "bullet_", 1)
-    or string.find(item1.name, "bullet_", 1) and string.find(item2.name, "enemie_", 1) then
-        item1.l = 5000
-        item2.l = 5000
-
-        bullets_count = bullets_count - 1
-        enemies_count = enemies_count - 1
-
-        table.remove(enemies, item1.id)
-        table.remove(bullets, item1.id)
-        table.remove(enemies, item2.id)
-        table.remove(bullets, item2.id)
+function collisions()
+    for _, b in pairs(bullets) do
+        for __, e in pairs(enemies) do
+            if CheckCollision(b.l, b.t, 10, 10, e.l, e.t, 120, 120) then
+                table.remove(bullets,_)
+                table.remove(enemies,__)
+                enemies_count = enemies_count - 1
+                bullets_count = bullets_count - 1
+            end
+        end
     end
 end
-
-function bump.endCollision(item1, item2)
-    bump.remove(item1)
-    bump.remove(item2)
-end
-
-function bump.getBBox(item)
-  return item.l, item.t, item.w, item.h
-end
-
-function bump.shouldCollide(item1, item2)
-    if string.find(item1.name, "enemie_", 1) and string.find(item2.name, "bullet_", 1)
-    or string.find(item1.name, "bullet_", 1) and string.find(item2.name, "enemie_", 1) then
-        return true
-    end
-    return false
-end
-
 
 function love.load()
     submarine = love.graphics.newImage("submarine.png")
     submarine_x = 10
     submarine_y = 10
-
+    enemie = love.graphics.newImage("enemie.png")
 
     now_time = 0
     prev_time = 0
@@ -58,21 +44,21 @@ end
 
 function love.update(dt)
     -- print(bullets_count, enemies_count)
-
+    collisions()
     now_time = socket.gettime()*1000
     if now_time - prev_enemie_time > 300 and enemies_count < 10 then
         prev_enemie_time = now_time
 
-        enemie = love.graphics.newImage("enemie.png")
+        
         local enemie_x = 1000
         local enemie_y = math.random(50, 550)
 
-        local modif_x = -4
+        local modif_x = -5
         local modif_y = 0
 
         enemie_i = enemie_i + 1
-        enemies[enemie_i] = {name='enemie_'..enemie_i, id=enemie_i, img=enemie, l=enemie_x, t=enemie_y, mx=modif_x, my=modif_y, w=128,h=128}
-        bump.add(enemies[enemie_i])
+        local enem = {name='enemie_'..enemie_i, id=enemie_i, img=enemie, l=enemie_x, t=enemie_y, mx=modif_x, my=modif_y, w=128,h=128}
+        table.insert(enemies, enem)
         enemies_count = enemies_count + 1
     end
 
@@ -82,12 +68,12 @@ function love.update(dt)
         local bullet_x = submarine_x + 120
         local bullet_y = submarine_y + 70
 
-        local modif_x = 20
+        local modif_x = 10
         local modif_y = 0
 
         bullet_i = bullet_i + 1
-        bullets[bullet_i]  = {name='bullet_'..bullet_i,id=bullet_i, img=bullet, l=bullet_x, t=bullet_y, mx=modif_x, my=modif_y, w=10, h=10}
-        bump.add(bullets[bullet_i])
+        bull  = {name='bullet_'..bullet_i,id=bullet_i, img=bullet, l=bullet_x, t=bullet_y, mx=modif_x, my=modif_y, w=10, h=10}
+        table.insert(bullets, bull)
         bullets_count = bullets_count + 1
     end
 
@@ -103,7 +89,6 @@ function love.update(dt)
     if love.keyboard.isDown("w") then
         submarine_y = submarine_y - 8
     end
-    bump.collide()
 end
 
 function love.draw()
@@ -115,7 +100,6 @@ function love.draw()
         bullet['l'] = bullet['l'] + bullet['mx']
         love.graphics.draw(bullet['img'], bullet['l'], bullet['t'])
         if bullet['l'] > 1000 then
-            bump.remove(bullet)
             table.remove(bullets, _)
         end
     end
@@ -130,11 +114,9 @@ function love.draw()
         love.graphics.draw(enemie['img'], enemie['l'], enemie['t'])
 
         if enemie['l'] > 3000 then
-            bump.remove(enemie)
             table.remove(enemies, _)
         end
         if enemie['l'] < -150 then
-            bump.remove(enemie)
             table.remove(enemies, _)
         end
     end
@@ -145,5 +127,8 @@ function love.draw()
 end
 
 function love.quit()
+    ProFi:stop()
+    ProFi:writeReport( 'F:/MyProfilingReport.txt' )
+
   print("Thanks for playing! Come back soon!")
 end
