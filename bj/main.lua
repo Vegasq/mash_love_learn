@@ -27,7 +27,9 @@ function love.load()
     submarine = love.graphics.newImage("submarine.png")
     submarine_x = 10
     submarine_y = 10
+
     enemie = love.graphics.newImage("enemie.png")
+    bullet = love.graphics.newImage("bullet.png")
 
     now_time = 0
     prev_time = 0
@@ -64,7 +66,6 @@ function love.update(dt)
 
     if now_time - prev_time > 300 and bullets_count < 10 then
         prev_time = now_time
-        bullet = love.graphics.newImage("bullet.png")
         local bullet_x = submarine_x + 120
         local bullet_y = submarine_y + 70
 
