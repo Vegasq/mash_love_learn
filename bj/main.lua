@@ -12,13 +12,17 @@ end
 
 function collisions()
     for _, b in pairs(bullets) do
+        local bullet_status = false
         for __, e in pairs(enemies) do
             if CheckCollision(b.l, b.t, 10, 10, e.l, e.t, 120, 120) then
-                table.remove(bullets,_)
+                billet_status = true
                 table.remove(enemies,__)
-                enemies_count = enemies_count - 1
                 bullets_count = bullets_count - 1
             end
+        end
+        if bullet_status then
+            table.remove(bullets,_)
+            enemies_count = enemies_count - 1
         end
     end
 end
