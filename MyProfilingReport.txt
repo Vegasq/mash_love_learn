@@ -1,0 +1,65 @@
+###############################################################################################################
+#####  ProFi, a lua profiler. This profile was generated on: Thu Jan 31 15:24:33 2013
+#####  ProFi is created by Luke Perkin 2012 under the MIT Licence, www.locofilm.co.uk
+#####  Version 1.3. Get the most recent version at this gist: https://gist.github.com/2838755
+###############################################################################################################
+
+| TOTAL TIME = 3.730000
+| FILE                                              : FUNCTION                                : LINE                : TIME        : RELATIVE    : CALLED      |
+| main.lua                                          : draw                                    :  170                : 2.480       : 66.49%      :     386     |
+| [string "graphics.lua"]                           : newFont                                 : 1247                : 0.820       : 21.98%      :     386     |
+| [C]                                               : newFont1                                :   -1                : 0.770       : 20.64%      :     386     |
+| main.lua                                          : update                                  :  128                : 0.670       : 17.96%      :     386     |
+| [C]                                               : print                                   :   -1                : 0.640       : 17.16%      :    2512     |
+| main.lua                                          : collisions                              :   15                : 0.490       : 13.14%      :      51     |
+| [C]                                               : draw                                    :   -1                : 0.370       : 9.92%       :    9438     |
+| [C]                                               : (for generator)                         :   -1                : 0.270       : 7.24%       :   19888     |
+| [C]                                               : present                                 :   -1                : 0.200       : 5.36%       :     386     |
+| [C]                                               : printf                                  :   -1                : 0.170       : 4.56%       :     130     |
+| [C]                                               : clear                                   :   -1                : 0.120       : 3.22%       :     386     |
+| [C]                                               : anonymous                               :   -1                : 0.120       : 3.22%       :     867     |
+| main.lua                                          : bullets_logic                           :   95                : 0.090       : 2.41%       :     389     |
+| [C]                                               : newImage                                :   -1                : 0.080       : 2.14%       :       4     |
+| main.lua                                          : load                                    :   45                : 0.080       : 2.14%       :       1     |
+| main.lua                                          : CheckCollision                          :    8                : 0.080       : 2.14%       :    8089     |
+| [C]                                               : pump                                    :   -1                : 0.060       : 1.61%       :     387     |
+| [C]                                               : isDown                                  :   -1                : 0.040       : 1.07%       :    1020     |
+| [C]                                               : sleep                                   :   -1                : 0.040       : 1.07%       :     386     |
+| main.lua                                          : enemies_logic                           :   77                : 0.020       : 0.54%       :     389     |
+| [C]                                               : getDelta                                :   -1                : 0.020       : 0.54%       :     386     |
+| [C]                                               : random                                  :   -1                : 0.010       : 0.27%       :     365     |
+| [C]                                               : insert                                  :   -1                : 0.010       : 0.27%       :      98     |
+| [string "graphics.lua"]                           : print                                   : 1261                : 0.000       : 0.00%       :       1     |
+| [C]                                               : getFont                                 :   -1                : 0.000       : 0.00%       :       2     |
+| [C]                                               : sethook                                 :   -1                : 0.000       : 0.00%       :       1     |
+| [string "boot.lua"]                               : ?                                       :  175                : 0.000       : 0.00%       :       2     |
+| [C]                                               : printf1                                 :   -1                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : quit                                    :  242                : 0.000       : 0.00%       :       1     |
+| ProFi.lua                                         : stop                                    :   85                : 0.000       : 0.00%       :       1     |
+| [C]                                               : print1                                  :   -1                : 0.000       : 0.00%       :       1     |
+| [string "graphics.lua"]                           : printf                                  : 1269                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : calculate_damage                        :   32                : 0.000       : 0.00%       :      35     |
+| [C]                                               : remove                                  :   -1                : 0.000       : 0.00%       :      51     |
+| [string "boot.lua"]                               : ?                                       :  157                : 0.000       : 0.00%       :       8     |
+| [string "boot.lua"]                               : ?                                       :  160                : 0.000       : 0.00%       :       8     |
+| [C]                                               : setFont                                 :   -1                : 0.000       : 0.00%       :     386     |
+| [C]                                               : pairs                                   :   -1                : 0.000       : 0.00%       :    1489     |
+| ProFi.lua                                         : shouldReturn                            :  199                : 0.000       : 0.00%       :       1     |
+| [C]                                               : require                                 :   -1                : 0.000       : 0.00%       :       0     |
+| [C]                                               : tostring                                :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : ipairs                                  :   -1                : 0.000       : 0.00%       :       1     |
+| main.lua                                          : anonymous                               :    0                : 0.000       : 0.00%       :       0     |
+| [C]                                               : getTime                                 :   -1                : 0.000       : 0.00%       :       2     |
+| ProFi.lua                                         : start                                   :   67                : 0.000       : 0.00%       :       0     |
+| ProFi.lua                                         : startHooks                              :  234                : 0.000       : 0.00%       :       0     |
+| [C]                                               : type                                    :   -1                : 0.000       : 0.00%       :     386     |
+| [string "boot.lua"]                               : anonymous                               :  227                : 0.000       : 0.00%       :       0     |
+| [string "boot.lua"]                               : anonymous                               :  373                : 0.000       : 0.00%       :       1     |
+| [C]                                               : step                                    :   -1                : 0.000       : 0.00%       :     386     |
+| [C]                                               : floor                                   :   -1                : 0.000       : 0.00%       :     255     |
+| [C]                                               : xpcall                                  :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : poll                                    :   -1                : 0.000       : 0.00%       :     387     |
+| [C]                                               : randomseed                              :   -1                : 0.000       : 0.00%       :       1     |
+| [C]                                               : gettime                                 :   -1                : 0.000       : 0.00%       :    1034     |
+| [C]                                               : time                                    :   -1                : 0.000       : 0.00%       :       1     |
+| ProFi.lua                                         : stopHooks                               :  238                : 0.000       : 0.00%       :       1     |
