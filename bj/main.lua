@@ -1,7 +1,9 @@
 require "socket"
 require "math"
-ProFi = require 'ProFi'
-ProFi:start()
+
+-- ProFi = require 'ProFi'
+-- ProFi:start()
+
 -- Collision detection function.
 -- Checks if a and b overlap.
 -- w and h mean width and height.
@@ -24,7 +26,6 @@ function collisions()
             if CheckCollision(b.l, b.t, 10, 10, player.l, player.t, player.w, player.h) then
                 calculate_damage(player, false, b, _)
             end
-            print('chek!!')
         end
     end
 end
@@ -54,7 +55,7 @@ function love.load()
     enemie = love.graphics.newImage("enemie.png")
     bullet = love.graphics.newImage("bullet.png")
 
-    player = {name='player', id=0, img=submarine, l=10, t=10, mx=false, my=false, w=128,h=128, life=10, time=false}
+    player = {name='player', id=0, img=submarine, l=10, t=10, mx=false, my=false, w=128,h=128, life=100, time=false}
 
     now_time = 0
     prev_time = 0
@@ -110,7 +111,7 @@ function bullets_logic()
         for _, enemie in pairs(enemies) do
             local rand = math.random(1, 10)
             if rand == 1 then
-                bull  = {name='bullet_'..enemie.name, id='id'..enemie.name, img=bullet, l=enemie.l, t=enemie.t, mx=-10, my=0, w=10, h=10, damage=1, my=false}
+                bull  = {name='bullet_'..enemie.name, id='id'..enemie.name, img=bullet, l=enemie.l, t=enemie.t, mx=-4, my=0, w=10, h=10, damage=1, my=false}
                 table.insert(bullets, bull)
                 bullets_count = bullets_count + 1
             end
@@ -172,14 +173,14 @@ function love.draw()
         font = love.graphics.newFont( 70 )
         love.graphics.setFont(font);
 
-        love.graphics.printf("Game Over", 0, 768, 1366, 'center')
+        love.graphics.printf("Game Over", 100, 300, 1100, 'center')
 
         return
     end
 
+
     bg_counter = bg_counter - 1
     if bg_counter < -3900 then
-        print("redraw!!!")
         bg_counter = 0
     end
 
@@ -187,6 +188,11 @@ function love.draw()
     draw(bg, bg_counter + 4000, 0)
 
     draw(player.img, player.l, player.t)
+
+    love.graphics.setColor(255, 0, 0)
+    love.graphics.setLine(5, "smooth")
+    love.graphics.line( 10, 750, player.life * 2 + 10, 750 )
+    love.graphics.setColor(255, 255, 255, 255)
 
     font = love.graphics.newFont( 30 )
     love.graphics.setFont(font);
@@ -240,8 +246,8 @@ function love.draw()
 end
 
 function love.quit()
-    ProFi:stop()
-    ProFi:writeReport( 'MyProfilingReport.txt' )
+--    ProFi:stop()
+--    ProFi:writeReport( 'MyProfilingReport.txt' )
 
   print("Thanks for playing! Come back soon!")
 end
