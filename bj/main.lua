@@ -1,5 +1,7 @@
 require "socket"
 require "math"
+enem = require "enem"
+drawer = require "drawer"
 
 -- ProFi = require 'ProFi'
 -- ProFi:start()
@@ -14,31 +16,7 @@ end
 
 
 
-function collisions()
-    for _, b in pairs(bullets) do
-        if b.my then
-            for __, e in pairs(enemies) do
-                if e.l < 1366 and e.l > 0 and CheckCollision(b.l, b.t, 10, 10, e.l, e.t, 120, 120) then
-                    calculate_damage(e, __, b, _)
-                end
-            end
-        else
-            if CheckCollision(b.l, b.t, 10, 10, player.l, player.t, player.w, player.h) then
-                calculate_damage(player, false, b, _)
-            end
-        end
-        if bullet_status then
-            table.remove(bullets,_)
-            enemies_count = enemies_count - 1
-        end
-    end
 
-    for _, enem in pairs(enemies) do
-        if CheckCollision(enem.l, enem.t, enem.w, enem.h, player.l, player.t, player.w, player.h) then
-            ship_crack(player, enem, _)
-        end
-    end
-end
 
 function ship_crack(player, enem, e_table)
     player.life = player.life - enem.damage
@@ -46,21 +24,16 @@ function ship_crack(player, enem, e_table)
     table.remove(enemies,e_table)
 end
 
-function calculate_damage(unit, u_table, bullet, b_table)
-    unit.life = unit.life - bullet.damage
-    unit.kicked = 5
-    if unit.life < 1 then
-        if u_table then
-            table.remove(enemies,u_table)
-        end
-        enemies_count = enemies_count - 1
-        score = score + 1
-    end
-    table.remove(bullets,b_table)
-    bullets_count = bullets_count - 1
-end
+
 
 function love.load()
+    timeout = 0.3
+    _fps = {draw=socket.gettime()*1000, update=socket.gettime()*1000}
+    -- delta_time = 0
+
+    _bc = 0
+    _ec = 0
+
     the_end = false
     score = 0
     floor = math.floor
@@ -76,6 +49,7 @@ function love.load()
     enem3 = love.graphics.newImage("resources/images/ships/spaceships2/Frigate.png")
 
     bullet = love.graphics.newImage("bullet.png")
+    bullet_img = love.graphics.newImage("bullet.png")
 
     player = {name='player', id=0, img=submarine, l=10, t=10, mx=false, my=false, w=128,h=87, life=100, time=false, kicked=0}
 
@@ -84,6 +58,12 @@ function love.load()
     prev_enemie_time = 0
     bullets = {}
     enemies = {}
+    for i=1,20 do
+        enemies[i] = false
+    end
+    for i=1,50 do
+        bullets[i] = false
+    end
 
     bullets_count = 0
     enemies_count = 0
@@ -114,6 +94,10 @@ function love.load()
     }
     table.insert(enemie_orders, enemie_order1)
     table.insert(enemie_orders, enemie_order2)
+
+    font = love.graphics.newFont( 30 )
+    
+
 end
 
 function table.copy(t)
@@ -125,14 +109,14 @@ function table.copy(t)
 end
 
 
-function enemies_logic()
+function enemies_logic(dt)
     now_time = socket.gettime()*1000
     if now_time - prev_enemie_time > 1300 and enemies_count < 10 then
+        local t1 = socket.gettime()*1000
         prev_enemie_time = now_time
 
         local r = math.random(1,2)
         local d = math.random(-1,1)
-        print(enemie_orders[1])
         if r == 1 then
             for _, e in pairs(enemie_orders[1]) do
                 enemie_i = enemie_i + 1
@@ -151,83 +135,118 @@ function enemies_logic()
                 enemies_count = enemies_count + 1
             end
         end
-
+        local t2 = socket.gettime()*1000
+        local t3 = t2 - t1
+        if t3 > timeout then
+            print('enemies_logic', t3)
+        end
         return true
-        
-        -- local enemie_x = 1366
-        -- local enemie_y = math.random(50, 700)
-
-        -- local modif_x = -1
-        -- local modif_y = 0
-
-        -- enemie_i = enemie_i + 1
-        -- local enem = {name='enemie_'..enemie_i, id=enemie_i, img=enemie, l=enemie_x, t=enemie_y, mx=modif_x, my=modif_y, w=128,h=128, life=5, time=now_time}
-        -- table.insert(enemies, enem)
-        -- enemies_count = enemies_count + 1
     end
 end
 
 function bullets_logic()
+
     now_time = socket.gettime()*1000
-    if now_time - prev_time > 100 then
+    if now_time - prev_time > 200 and _bc < 50 then
+        local t1 = socket.gettime()*1000
+    
         prev_time = now_time
-        local bullet_x = player.l + 120
+        local bullet_x = player.l + player.w - 10
         local bullet_y = player.t + player.h / 2 - 5
 
         local modif_x = 15
         local modif_y = 0
 
+
+        local bull = {}
+        for z=1,10 do
+            bull[z] = false
+        end
+        bull.img='bullet1'
+        bull.l=bullet_x
+        bull.t=bullet_y
+        bull.mx=modif_x * 2
+        bull.w=10
+        bull.h=10
+        bull.damage=2
+        bull.owner=true
+
         bullet_i = bullet_i + 1
-        bull  = {name='bullet_'..bullet_i,id=bullet_i, img=bullet, l=bullet_x, t=bullet_y, mx=modif_x, my=modif_y, w=10, h=10, damage=1, my=true}
+
+
         table.insert(bullets, bull)
         bullets_count = bullets_count + 1
 
         for _, enem in pairs(enemies) do
-            local rand = math.random(1, 25)
-            if rand == 1 then
-                bull  = {name='bullet_'..enem.name, id='id'..enem.name, img=bullet, l=enem.l, t=enem.t + 50, mx=-4, my=0, w=10, h=10, damage=1, my=false}
-                table.insert(bullets, bull)
-                bullets_count = bullets_count + 1
+            if enem then
+                local rand = math.random(1, 25)
+                if rand == 1 and _ec < 10 then
+                    local r1 = socket.gettime()*1000
+                    local bull = {}
+
+                    for z=1,10 do
+                        bull[z] = false
+                    end
+
+                    bull.img='bullet1'
+                    bull.l=enem.l
+                    bull.t=enem.t + 50
+                    bull.mx=-4
+                    bull.w=10
+                    bull.h=10
+                    bull.damage=1
+                    bull.owner=false
+                    local r2 = socket.gettime()*1000
+                    local r3 = r2 -r1
+                    if r3 > timeout then
+                        print('Random', r3)
+                    end
+                    bullets_count = bullets_count + 1
+
+                    table.insert(bullets, bull)
+                end
             end
         end
-
-        -- bullet_i = bullet_i + 1
-        -- bull  = {name='bullet_'..bullet_i,id=bullet_i, img=bullet, l=bullet_x, t=bullet_y + 10, mx=modif_x, my=modif_y, w=10, h=10, damage=1}
-        -- table.insert(bullets, bull)
-        -- bullets_count = bullets_count + 1
-
+    
+        local t2 = socket.gettime()*1000
+        local t3 = t2 - t1
+        if t3 > timeout then
+            print('bullets_logic', t3)
+        end
 
     end
+
 end
 
 function love.update(dt)
-    if player.life < 1 then
-        the_end = true
-    end
-    if the_end then
+    -- delta_time = dt
+    local draw_timer = socket.gettime()*1000
+    local delta = draw_timer - _fps.draw
+
+    if check_game_over() then
         return
     end
 
-    loop_counter['c'] = loop_counter['c'] + 1
-    loop_counter['time'] = socket.gettime()*1000
-    local t_diff = loop_counter['time'] - loop_counter['ptime']
-    frames_to_show = floor(t_diff / 10)
-    for i=1,frames_to_show do
-        enemies_logic()
-        bullets_logic()
+    
+    enemies_logic()
+    bullets_logic()
+    enem:collisions()
+    check_keyboard()
+
+end
+
+function check_game_over()
+    if player.life < 1 then
+        font = love.graphics.newFont( 70 )
+        love.graphics.setFont(font);
+        love.graphics.printf("Game Over\n You're score: "..score, 100, 300, 1100, 'center')
+
+        the_end = true
     end
-    loop_counter['ptime'] = loop_counter['time'] 
-    local prcnt = loop_counter['c'] % 10
-    if prcnt == 0 or prcnt == 5 then
-        collisions()
-    end
+    return the_end
+end
 
-
-    -- if dt < 0.01 then
-    --     return
-    -- end
-
-
+function check_keyboard()
     if love.keyboard.isDown("a") and player.l > 0 then
         player.l = player.l - 8
     end
@@ -242,112 +261,59 @@ function love.update(dt)
     end
 end
 
+
+
+
 function love.draw()
-    if the_end then
-        font = love.graphics.newFont( 70 )
-        love.graphics.setFont(font);
 
-        love.graphics.printf("Game Over\n You're score: "..score, 100, 300, 1100, 'center')
-
+    if check_game_over() then
         return
     end
 
 
-    bg_counter = bg_counter - 1
-    if bg_counter < -2450 then
-        bg_counter = 0
+    local t1 = socket.gettime()*1000
+    drawer:bg()
+    local t2 = socket.gettime()*1000
+    local t3 = t2 - t1
+    if t3 > 5 then
+        print('Draw1', t3)
     end
 
-    draw(bg, bg_counter, 0)
-    draw(bg, bg_counter + 2500, 0)
 
-
-    if player.kicked > 0 then
-        love.graphics.setColor(255, 0, 0)
+    local t1 = socket.gettime()*1000
+    drawer:player()
+    local t2 = socket.gettime()*1000
+    local t3 = t2 - t1
+    if t3 > 5 then
+        print('Draw2', t3)
     end
-    draw(player.img, player.l, player.t)
-    if player.kicked > 0 then
-        player.kicked = player.kicked - 1
-        love.graphics.setColor(255, 255, 255, 255)
+
+    local t1 = socket.gettime()*1000
+    drawer:interface()
+    local t2 = socket.gettime()*1000
+    local t3 = t2 - t1
+    if t3 > 5 then
+        print('Draw3', t3)
     end
-    
 
-
-
-    love.graphics.setColor(255, 0, 0)
-    love.graphics.setLine(5, "smooth")
-    love.graphics.line( 10, 750, player.life * 2 + 10, 750 )
-    love.graphics.setColor(255, 255, 255, 255)
-
-    font = love.graphics.newFont( 30 )
-    love.graphics.setFont(font);
-
-    love.graphics.print("Score: ", 0, 0);
-    love.graphics.print(score, 100, 0);
-
-    love.graphics.print("Life: ", 0, 50);
-    love.graphics.print(player.life, 100, 50);
-
-
-    _bc = 0
-    for _, bullet in pairs(bullets) do
-        _bc = _bc + 1
-        bullet['l'] = bullet['l'] + bullet['mx']
-        if bullet['l'] < 1366 or bullet['l'] > 0 or bullet['t'] > 0 or bullet['t'] < 768 then
-            draw(bullet['img'], bullet['l'], bullet['t'])
-        end
-        if bullet['l'] > 3000 or bullet['l'] < 1 then
-            table.remove(bullets, _)
-        end
+    local t1 = socket.gettime()*1000
+    drawer:bullets()
+    local t2 = socket.gettime()*1000
+    local t3 = t2 - t1
+    if t3 > 5 then
+        print('Draw4', t3)
     end
-    bullets_count = _bc
-    -- if _bc > 10 then
-    --     print("Problem with bullets: ".._bc)
-    -- end 
 
-    _ec = 0
-    for _, enemie in pairs(enemies) do
-        _ec = _ec + 1
-        enemie['l'] = enemie['l'] + enemie['mx']
-        enemie['t'] = enemie['t'] + enemie['my']
-
-        if enemie['t'] < 100 then
-            enemie['my'] = enemie['my'] * -1
-            enemie['t'] = 100
-        end
-        if enemie['t'] > 700 then
-            enemie['my'] = enemie['my'] * -1
-            enemie['t'] = 700
-        end
-
-
-
-        if enemie.kicked > 0 then
-            love.graphics.setColor(255, 0, 0)
-        end
-        draw(enemie['img'], enemie['l'], enemie['t'])
-        if enemie.kicked > 0 then
-            enemie.kicked = enemie.kicked - 1
-            love.graphics.setColor(255, 255, 255, 255)
-        end
-
-        if enemie['l'] > 3000 then
-            table.remove(enemies, _)
-        end
-        if enemie['l'] < -150 then
-            table.remove(enemies, _)
-        end
+    local t1 = socket.gettime()*1000
+    drawer:enemies()
+    local t2 = socket.gettime()*1000
+    local t3 = t2 - t1
+    if t3 > 5 then
+        print('Draw5', t3)
     end
-    enemies_count = _ec
-    -- if _ec > 10 then
-    --     print("Problem with enemies: ".._ec)
-    -- end 
 
-    love.graphics.print("Bullets: ", 0, 150);
-    love.graphics.print(_bc, 140, 150);
 
-    love.graphics.print("Enemies: ", 0, 100);
-    love.graphics.print(_ec, 140, 100);
+
 end
 
 function love.quit()
