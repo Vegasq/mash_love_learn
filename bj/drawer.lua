@@ -1,11 +1,6 @@
 local drawer = {}
 
 function drawer:bg()
-    bg_counter = bg_counter - 1
-    if bg_counter < -2450 then
-        bg_counter = 0
-    end
-
     draw(bg, bg_counter, 0)
     draw(bg, bg_counter + 2500, 0)
 end
@@ -44,39 +39,29 @@ function drawer:interface()
 end
 
 function drawer:enemies()
+    animations_counter = 0
+    for i,v in ipairs(gAnimations) do
+        if v ~= nil then
+            animations_counter = animations_counter + 1
+            anim:draw(v)
+        end
+    end
+
+
     _ec = 0
-    for _, enemie in pairs(enemies) do
-        if enemie then
+    for _, enemie_in_drawer in pairs(enemies) do
+        if enemie_in_drawer then
             _ec = _ec + 1
-            enemie['l'] = enemie['l'] + enemie['mx']
-            enemie['t'] = enemie['t'] + enemie['my']
 
-            if enemie['t'] < 100 then
-                enemie['my'] = enemie['my'] * -1 -- - delta_time
-                enemie['t'] = 100
-            end
-            if enemie['t'] > 700 then
-                enemie['my'] = enemie['my'] * -1 -- - delta_time
-                enemie['t'] = 700
-            end
-
-
-
-            if enemie.kicked > 0 then
+            if enemie_in_drawer.kicked > 0 then
                 love.graphics.setColor(255, 0, 0)
             end
-            draw(enemie['img'], enemie['l'], enemie['t'])
-            if enemie.kicked > 0 then
-                enemie.kicked = enemie.kicked - 1
+            draw(enemie_in_drawer['img'], enemie_in_drawer['l'], enemie_in_drawer['t'])
+            if enemie_in_drawer.kicked > 0 then
+                enemie_in_drawer.kicked = enemie_in_drawer.kicked - 1
                 love.graphics.setColor(255, 255, 255, 255)
             end
 
-            if enemie['l'] > 3000 then
-                table.remove(enemies, _)
-            end
-            if enemie['l'] < -150 then
-                table.remove(enemies, _)
-            end
         end
     end
     enemies_count = _ec
@@ -85,29 +70,19 @@ end
 
 function drawer:bullets()
     _bc = 0
-    for _, _bullet in pairs(bullets) do
-        if _bullet then
+    for _, bullet_in_drawer in pairs(bullets) do
+        if bullet_in_drawer then
             _bc = _bc + 1
 
-            -- if _bullet['mx'] > 0 then
-            --     _dt = delta_time
-            -- else
-            --     _dt = delta_time * -1
-            -- end
+            -- if bullet_in_drawer['l'] < 1366 or bullet_in_drawer['l'] > 0 or bullet_in_drawer['t'] > 0 or bullet_in_drawer['t'] < 768 then
 
-            _bullet['l'] = _bullet['l'] + _bullet['mx'] --+ _dt
-            if _bullet['l'] < 1366 or _bullet['l'] > 0 or _bullet['t'] > 0 or _bullet['t'] < 768 then
-
-                if _bullet['img'] == 'bullet1' then
-                    draw(bullet_img, _bullet['l'], _bullet['t'])
+                if bullet_in_drawer['img'] == 'bullet1' then
+                    draw(bullet_img, bullet_in_drawer['l'], bullet_in_drawer['t'])
                 else
-                    draw(_bullet['img'], _bullet['l'], _bullet['t'])
+                    draw(bullet_in_drawer['img'], bullet_in_drawer['l'], bullet_in_drawer['t'])
                 end 
 
-            end
-            if _bullet['l'] > 3000 or _bullet['l'] < 1 then
-                table.remove(bullets, _)
-            end
+            -- end
         end
     end
     bullets_count = _bc
