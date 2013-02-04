@@ -1,15 +1,15 @@
 menu = {}
 
 function menu:init()
-	self.menu = {}
+self.menu = {}
     self.top = 200
     self.offset = 50
     logo = {name='logo', text='Black January', x=50, y=400, w=0, h=0, font=font50, color=0}
     start_game = {name='start_game', text='Start Game', x=50, y=500, w=200, h=30, font=font, color=0}
-	exit_game = {name='exit_game', text='Exit Game', x=50, y=550, w=200, h=30, font=font, color=0}
+    exit_game = {name='exit_game', text='Exit Game', x=50, y=550, w=200, h=30, font=font, color=0}
     table.insert(self.menu, logo)
     table.insert(self.menu, start_game)
-	table.insert(self.menu, exit_game)
+    table.insert(self.menu, exit_game)
 end
 
 function menu:update()
@@ -23,7 +23,11 @@ function menu:update()
             if down then
                 if v.name == 'start_game' then
                     love.mouse.setVisible(false)
-                    define:set_game_status('game')
+
+                    gCurrent_level.level = gCurrent_level.level + 1
+                    define:set_level(gCurrent_level.level)
+
+                    define:set_game_status('briefing')
                 elseif v.name == 'exit_game' then
                     love.event.push("quit")
                 end

@@ -15,8 +15,8 @@ function drawer:init()
 end
 
 function drawer:bg()
-    draw(bg, bg_counter, 0)
-    draw(bg, bg_counter + 2500, 0)
+    draw(gBackground.bg, gBackground.bg_counter, 0)
+    draw(gBackground.bg, gBackground.bg_counter + 2500, 0)
 end
 
 function drawer:player()
@@ -64,7 +64,7 @@ function drawer:enemies()
 
     _ec = 0
     for _, enemie_in_drawer in pairs(enemies) do
-        if enemie_in_drawer then
+        if type(enemie_in_drawer) == 'table' then
             _ec = _ec + 1
 
             if enemie_in_drawer.kicked > 0 then
