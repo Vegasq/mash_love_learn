@@ -23,7 +23,7 @@ function menu:update()
             if down then
                 if v.name == 'start_game' then
                     love.mouse.setVisible(false)
-
+                    define:init()
                     gCurrent_level.level = gCurrent_level.level + 1
                     define:set_level(gCurrent_level.level)
 

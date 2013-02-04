@@ -30,6 +30,8 @@ function love.update(dt)
         menu:update()
     elseif game_status == 'game' then
         gameplay:update()
+    elseif game_status == 'gameover' then
+        gameover:update()
     elseif game_status == 'briefing' then
         briefing:update()
     end

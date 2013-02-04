@@ -1,0 +1,627 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"game",
+				"game_status"
+			],
+			[
+				"random",
+				"random_name"
+			],
+			[
+				"for",
+				"fori	for i,v in ipairs()"
+			],
+			[
+				"rand",
+				"random_name"
+			],
+			[
+				"w_c",
+				"w_count"
+			],
+			[
+				"fra",
+				"frame_height"
+			],
+			[
+				"anim",
+				"anim_image"
+			],
+			[
+				"ani",
+				"anim_image"
+			],
+			[
+				"enem",
+				"enemie"
+			],
+			[
+				"eme",
+				"enemie_i"
+			],
+			[
+				"bull",
+				"bullet_status"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.lua",
+			"settings":
+			{
+				"buffer_size": 1248,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/define.lua",
+			"settings":
+			{
+				"buffer_size": 4857,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "menu/menu.lua",
+			"settings":
+			{
+				"buffer_size": 1596,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Лёля-и-Коля/AppData/Roaming/Sublime Text 3/Packages/User/love.sublime-build",
+			"settings":
+			{
+				"buffer_size": 167,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "build.py",
+			"settings":
+			{
+				"buffer_size": 631,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "gameover/gameover.lua",
+			"settings":
+			{
+				"buffer_size": 331,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/anim.lua",
+			"settings":
+			{
+				"buffer_size": 2412,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "game/enem.lua",
+			"settings":
+			{
+				"buffer_size": 5296,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game/drawer.lua",
+			"settings":
+			{
+				"buffer_size": 3271,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/love.sublime-build",
+	"command_palette":
+	{
+		"height": 360.0,
+		"selected_items":
+		[
+		],
+		"width": 384.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/build_win.ps1",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/build_win.bat",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/conf.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/anim.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/gameplay.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/utils.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/define.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/menu.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/main.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/drawer.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/enem.lua",
+		"/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/define.lu",
+		"/F/gif_fixer.py",
+		"/F/up.py",
+		"/F/bj/main.lua",
+		"/C/Users/Лёля-и-Коля/AppData/Roaming/Sublime Text 3/Packages/User/love.sublime-build",
+		"/F/bj/ProFi.lua",
+		"/C/Users/Лёля-и-Коля/Desktop/bj/main.lua",
+		"/C/Users/Лёля-и-Коля/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Лёля-и-Коля/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\Users\\Лёля-и-Коля\\Documents\\GitHub\\mash_love_learn\\bj"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"print",
+			"submarine",
+			"print",
+			"gameplay:CheckCollision",
+			"CheckCollision",
+			"ship_c",
+			"CheckCollision",
+			"ship",
+			"CheckCollision",
+			"draw",
+			"create_enemie",
+			"table.c",
+			"check_keyboard",
+			"check_game_over",
+			"_lofic",
+			"ship_crack",
+			"pri",
+			"gAn",
+			"gAb",
+			"bonuses",
+			"100",
+			"bonuses",
+			".x",
+			"gAnimations",
+			"w_count",
+			"w",
+			"bonuses",
+			"bonus1",
+			"enem",
+			"enemie_in_logic",
+			"life",
+			"kicked",
+			"draw",
+			"10",
+			"remove",
+			"_,",
+			"_ ",
+			" _",
+			",_",
+			"remover",
+			"e.l",
+			"0.8",
+			"life",
+			"Remove",
+			"life",
+			"_bullet",
+			"enemie",
+			"'l",
+			"_bullet",
+			"'l'",
+			"enemie",
+			"random",
+			"remove",
+			"1000",
+			"Remover",
+			"remove",
+			"copy",
+			"-0.4",
+			"0.1",
+			"6",
+			"player",
+			"enemies",
+			"enemie",
+			"score",
+			"it",
+			"tringle",
+			"mp4",
+			"bullets_count",
+			"next",
+			"bum",
+			"_getOverlapAndDisplacementVector",
+			"_getOverlaps",
+			"_getNextCollisionForItem",
+			"_collideItemWithNeighbor",
+			"_collideItemWithNeighbors",
+			"collide",
+			"function ",
+			" collision",
+			"update",
+			"end"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								739,
+								739
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "game/define.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4420,
+								4456
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1512.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "menu/menu.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1596,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10,
+								10
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/Лёля-и-Коля/AppData/Roaming/Sublime Text 3/Packages/User/love.sublime-build",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 167,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								167,
+								167
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "build.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								52,
+								52
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "gameover/gameover.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								192,
+								192
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "game/anim.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								365,
+								365
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "game/enem.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5296,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								609,
+								609
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "game/drawer.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								308,
+								308
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 215.0
+	},
+	"project": "/C/Users/Лёля-и-Коля/Documents/GitHub/mash_love_learn/bj/subl.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
