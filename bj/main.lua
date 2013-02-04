@@ -7,6 +7,9 @@ drawer = require "game/drawer"
 enem = require "game/enem"
 gameplay = require "game/gameplay"
 
+briefing = require "briefing/briefing"
+
+gameover = require "gameover/gameover"
 menu = require "menu/menu"
 utils = require "utils"
 -- ProFi = require 'ProFi'
@@ -17,27 +20,31 @@ function love.load()
     define:init()
     menu:init()
     enem:init()
+    define:init_levels()
 end
 
 function love.update(dt)
+
     local game_status = define:get_game_status()
     if game_status == 'menu' then
         menu:update()
     elseif game_status == 'game' then
         gameplay:update()
+    elseif game_status == 'briefing' then
+        briefing:update()
     end
 end
 
 function love.draw()
-    if gameplay:check_game_over() then
-        return
-    end
-
     local game_status = define:get_game_status()
     if game_status == 'menu' then
         menu:draw()
     elseif game_status == 'game' then
-        gameplay:drow()
+        gameplay:draw()
+    elseif game_status == 'gameover' then
+        gameover:draw()
+    elseif game_status == 'briefing' then
+        briefing:draw()
     end
 end
 

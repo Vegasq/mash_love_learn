@@ -1,5 +1,29 @@
 local enem = {}
 
+function enem:init()
+    local now_time = socket.gettime()*1000
+    -- enemie_orders = {}
+    create_enemie_counter = 0
+    -- local enem_speed = -0.4
+    -- local enemie_order1 = {
+    --     u1={name='1_in_tringle', id='1it', img=enem1, l=1566, t=100, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
+    --     u2={name='2_in_tringle', id='2it', img=enem2, l=1466, t=200, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
+    --     u3={name='3_in_tringle', id='3it', img=enem3, l=1366, t=300, mx=enem_speed, my=0, w=111,h=45, life=25, time=now_time, kicked=0, damage=5},
+    --     u4={name='4_in_tringle', id='4it', img=enem2, l=1466, t=400, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
+    --     u5={name='5_in_tringle', id='5it', img=enem1, l=1566, t=500, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
+    -- }
+    -- local enemie_order2 = {
+    --     u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, mx=enem_speed, my=0, w=111,h=45, life=30, time=now_time, kicked=0, damage=5},
+    --     u2={name='2_in_line', id='2il', img=enem2, l=1766, t=100, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
+    --     u3={name='3_in_line', id='3il', img=enem2, l=1966, t=100, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
+    --     -- u4={name='4_in_line', id='4il', img=enem1, l=1866, t=100, mx=-2, my=0, w=128,h=128, life=5, time=now_time},
+    --     -- u5={name='5_in_line', id='5il', img=enem1, l=1966, t=100, mx=-2, my=0, w=128,h=128, life=5, time=now_time},
+    -- }
+    -- table.insert(enemie_orders, enemie_order1)
+    -- table.insert(enemie_orders, enemie_order2)
+
+end
+
 function enem:create_enemie(img_name,x,y,w,h,mx,my,life,damage)
     create_enemie_counter = create_enemie_counter + 1
     local now_time = socket.gettime()*1000
@@ -24,13 +48,13 @@ function enem:calculate_damage(unit, u_table, bullet, b_table)
                 table.insert(gAnimations, try)
             end
 
-            local bonus_posibility = math.random(1,2)
+            local bonus_posibility = math.random(1,20)
             if bonus_posibility == 1 then
                 local random_name = "bonusname"..math.random(1000,9000)
 
                 local try = anim:create_anim(random_name, bonus1, 20, 20, 'loop', unit.l, unit.t)
                 if try ~= false then
-                    table.insert(bonuses, {name=random_name, type='life', value=20, t=unit.t, l=unit.l, mx=unit.mx, my=0, w=20, h=20})
+                    table.insert(bonuses, {name=random_name, type='life', value=5, t=unit.t, l=unit.l, mx=unit.mx, my=0, w=20, h=20})
                     table.insert(gAnimations, try)
                 end
             end
@@ -39,7 +63,6 @@ function enem:calculate_damage(unit, u_table, bullet, b_table)
         enemies_count = enemies_count - 1
         score = score + 1
     end
-    print('BulletRemover2')
     table.remove(bullets,b_table)
     bullets_count = bullets_count - 1
 
@@ -58,9 +81,10 @@ function enem:collisions()
         if b then
             if b.owner then
                 for __, e in pairs(enemies) do
-                    if e then
+                    if type(e) == 'table' then
                         if e.l < 1366 and e.l > 0 and utils:CheckCollision(b.l, b.t, 10, 10, e.l, e.t, 120, 120) then
                             enem:calculate_damage(e, __, b, _)
+                            break
                         end
                     end
                 end
@@ -86,7 +110,7 @@ function enem:collisions()
     end
 
     for _, enem in pairs(enemies) do
-        if enem then
+        if type(enem) == 'table' then
             if utils:CheckCollision(enem.l, enem.t, enem.w, enem.h, player.l, player.t, player.w, player.h) then
                 local random_name = "ShipCrack"..math.random(1000,9000)
                 anim:create_anim(random_name, boom1, 54, 54, 'once', enem.l, enem.t)
@@ -100,33 +124,10 @@ function enem:collisions()
     local t2 = socket.gettime()*1000
     local t3 = t2 - t1
     if t3 > timeout then
-        print('collisions', t3)
+        -- print('collisions', t3)
     end
 
 end
 
-function enem:init()
-    local now_time = socket.gettime()*1000
-    enemie_orders = {}
-    create_enemie_counter = 0
-    local enem_speed = -0.4
-    local enemie_order1 = {
-        u1={name='1_in_tringle', id='1it', img=enem1, l=1566, t=100, mx=enem_speed, my=0, w=91,h=40, life=5, time=now_time, kicked=0, damage=5},
-        u2={name='2_in_tringle', id='2it', img=enem2, l=1466, t=200, mx=enem_speed, my=0, w=130,h=45, life=10, time=now_time, kicked=0, damage=5},
-        u3={name='3_in_tringle', id='3it', img=enem3, l=1366, t=300, mx=enem_speed, my=0, w=111,h=45, life=15, time=now_time, kicked=0, damage=5},
-        u4={name='4_in_tringle', id='4it', img=enem2, l=1466, t=400, mx=enem_speed, my=0, w=130,h=45, life=10, time=now_time, kicked=0, damage=5},
-        u5={name='5_in_tringle', id='5it', img=enem1, l=1566, t=500, mx=enem_speed, my=0, w=91,h=40, life=5, time=now_time, kicked=0, damage=5},
-    }
-    local enemie_order2 = {
-        u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, mx=enem_speed, my=0, w=111,h=45, life=3, time=now_time, kicked=0, damage=5},
-        u2={name='2_in_line', id='2il', img=enem2, l=1766, t=100, mx=enem_speed, my=0, w=130,h=45, life=3, time=now_time, kicked=0, damage=5},
-        u3={name='3_in_line', id='3il', img=enem2, l=1966, t=100, mx=enem_speed, my=0, w=130,h=45, life=3, time=now_time, kicked=0, damage=5},
-        -- u4={name='4_in_line', id='4il', img=enem1, l=1866, t=100, mx=-2, my=0, w=128,h=128, life=5, time=now_time},
-        -- u5={name='5_in_line', id='5il', img=enem1, l=1966, t=100, mx=-2, my=0, w=128,h=128, life=5, time=now_time},
-    }
-    table.insert(enemie_orders, enemie_order1)
-    table.insert(enemie_orders, enemie_order2)
-
-end
 
 return enem

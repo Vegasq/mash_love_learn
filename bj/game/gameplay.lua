@@ -7,7 +7,7 @@ function gameplay:enemies_logic(dt)
 
     now_time = socket.gettime()*1000
     for i,enemie_in_logic in ipairs(enemies) do
-        if enemie_in_logic then
+        if type(enemie_in_logic) == 'table' then
             -- Update position
             enemie_in_logic['l'] = enemie_in_logic['l'] + enemie_in_logic['mx']
             enemie_in_logic['t'] = enemie_in_logic['t'] + enemie_in_logic['my']
@@ -35,31 +35,24 @@ function gameplay:enemies_logic(dt)
         end
     end
 
-    if now_time - prev_enemie_time > 3300 and enemies_count < 10 then
-        local t1 = socket.gettime()*1000
+    if now_time - prev_enemie_time > 5000 and enemies_count < 10 then
         prev_enemie_time = now_time
 
-        local r = math.random(1,2)
+        local r = math.random(1,#enemie_orders)
         local d = math.random(-1,1)
-        if r == 1 then
-            for _, e in pairs(enemie_orders[1]) do
-                local ee = enem:create_enemie(e.img,e.l,e.t,e.w,e.h,e.mx,e.my,e.life,e.damage)
-                ee.my = d
-                table.insert(enemies, ee)
-                enemies_count = enemies_count + 1
-            end
-        else
-            for _, e in pairs(enemie_orders[2]) do
-                local ee = enem:create_enemie(e.img,e.l,e.t,e.w,e.h,e.mx,e.my,e.life,e.damage)
-                ee.my = d
-                table.insert(enemies, ee)
-                enemies_count = enemies_count + 1
-            end
+
+        local pos = math.random(0,100)
+        if enemie_orders[r].pos < pos then
+            return false
         end
-        local t2 = socket.gettime()*1000
-        local t3 = t2 - t1
-        if t3 > timeout then
-            print('enemies_logic', t3)
+
+        for _, e in pairs(enemie_orders[r]) do
+            if type(e) == 'table' then
+                local ee = enem:create_enemie(e.img,e.l,e.t,e.w,e.h,e.mx,e.my,e.life,e.damage)
+                ee.my = d
+                table.insert(enemies, ee)
+                enemies_count = enemies_count + 1
+            end
         end
         return true
     end
@@ -80,7 +73,7 @@ function gameplay:bullets_logic()
 
     -- Enemies bullets
     for _, enem in pairs(enemies) do
-        if enem then
+        if type(enem) == 'table' then
             local rand = math.random(1, 500)
             if rand == 1 then
                 local bull = {}
@@ -138,11 +131,8 @@ end
 
 function gameplay:check_game_over()
     if player.life < 1 then
-        font = love.graphics.newFont( 70 )
-        love.graphics.setFont(font);
-        love.graphics.printf("Game Over\n You're score: "..score, 100, 300, 1100, 'center')
-
         the_end = true
+        define:set_game_status('gameover')
     end
     return the_end
 end
@@ -166,7 +156,7 @@ function gameplay:check_keyboard()
     -- end
 end
 
-function gameplay:drow()
+function gameplay:draw()
     drawer:bg()
     drawer:player()
     drawer:interface()
@@ -183,8 +173,24 @@ function gameplay:ship_crack(player, enem, e_table)
     table.remove(enemies,e_table)
 end
 
+function gameplay:check_victory()
+    if gVictory.by_points > 0  and score >= gVictory.by_points then
+        gCurrent_level.level = gCurrent_level.level + 1
+        define:set_level(gCurrent_level.level)
+
+        define:set_game_status('briefing')
+    end
+    if gVictory.by_helth > 0 then
+    end
+    if gVictory.by_time > 0 then
+    end
+
+end
+
 function gameplay:update()
+    gameplay:check_victory()
     -- delta_time = dt
+
     local draw_timer = socket.gettime()*1000
     local delta = draw_timer - _fps.draw
     local frame_counter = delta / 10 -- 1000ms / 40 = 25 frames
@@ -197,9 +203,9 @@ function gameplay:update()
             frame_counter = frame_counter-1
 
             -- FixME
-            bg_counter = bg_counter - 0.3
-            if bg_counter < -2450 then
-                bg_counter = 0
+            gBackground.bg_counter = gBackground.bg_counter - gBackground.speed
+            if gBackground.bg_counter < gBackground.bg_w * -1 then
+                gBackground.bg_counter = 0
             end
 
         end
@@ -207,6 +213,7 @@ function gameplay:update()
     end
 
     if gameplay:check_game_over() then
+        love.mouse.setVisible(true)
         return
     end
 end
