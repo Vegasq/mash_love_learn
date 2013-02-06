@@ -1,6 +1,7 @@
 menu = {}
 
 function menu:init()
+    define:set_game_status('menu')
 self.menu = {}
     self.top = 200
     self.offset = 50
@@ -10,6 +11,7 @@ self.menu = {}
     table.insert(self.menu, logo)
     table.insert(self.menu, start_game)
     table.insert(self.menu, exit_game)
+
 end
 
 function menu:update()

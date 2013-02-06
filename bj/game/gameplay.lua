@@ -14,11 +14,11 @@ function gameplay:enemies_logic(dt)
 
             -- Remove items outside the screen
             if enemie_in_logic['l'] > 3000 then
-                print('EnemRemover1')
+                -- print('EnemRemover1')
                 table.remove(enemies, i)
             end
             if enemie_in_logic['l'] < -150 then
-                print('EnemRemover2 ', enemie_in_logic.name)
+                -- print('EnemRemover2 ', enemie_in_logic.name)
                 -- enemie_in_logic.life = 0
                 table.remove(enemies, i)
             end
@@ -59,12 +59,13 @@ function gameplay:enemies_logic(dt)
 end
 
 function gameplay:bullets_logic()
+
     for i,bullet_in_logic in ipairs(bullets) do
         if bullet_in_logic then
             bullet_in_logic['l'] = bullet_in_logic['l'] + bullet_in_logic['mx']
             if bullet_in_logic['l'] > 3000 or bullet_in_logic['l'] < -1000 then
                 if bullet_in_logic['l'] < -1000 then
-                    print('BulletRemover3', bullet_in_logic['l'])
+                    -- print('BulletRemover3', bullet_in_logic['l'])
                 end
                 table.remove(bullets, i)
             end
@@ -99,7 +100,10 @@ function gameplay:bullets_logic()
 
     -- Player bullets
     now_time = socket.gettime()*1000
-    if now_time - prev_time > 100 then
+    if now_time - prev_time > 100 and love.mouse.isDown('l') then
+        local c = gAudio['bang1']
+        love.audio.play(c)
+
         prev_time = now_time
         local bullet_x = player.l + player.w - 10
         local bullet_y = player.t + player.h / 2 - 5
@@ -169,7 +173,7 @@ end
 function gameplay:ship_crack(player, enem, e_table)
     player.life = player.life - enem.damage
     player.kicked = 155
-    print('ShipCrack')
+    -- print('ShipCrack')
     table.remove(enemies,e_table)
 end
 

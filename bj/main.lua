@@ -25,6 +25,8 @@ end
 
 function love.update(dt)
 
+
+
     local game_status = define:get_game_status()
     if game_status == 'menu' then
         menu:update()
@@ -54,3 +56,5 @@ function love.quit()
 --    ProFi:stop()
 --    ProFi:writeReport( 'MyProfilingReport.txt' )
 end
+
+

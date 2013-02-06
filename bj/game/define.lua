@@ -1,6 +1,20 @@
 define = {}
 
 function define:init()
+    gAudio = {}
+    gAudio['bang1'] = love.audio.newSource(
+        'resources/music/machine_gun_223_caliber_single_shot_distant_bushmaster_ar_15.ogg', 'static')
+    gAudio['bg1'] = love.audio.newSource(
+        'resources/music/improv_for_evil_a_short_dark_drum_heavy_groove.ogg' )
+    gAudio['bg1']:setLooping(true)
+
+    gAudio['bg2'] = love.audio.newSource(
+        'resources/music/lost_in_space_dance_track_with_electronic_rhythms_and_looped_sax_riff_runing_throughout.ogg' )
+    gAudio['bg2']:setLooping(true)
+
+
+
+
     timeout = 0.3
     _bc = 0
     _ec = 0
@@ -96,6 +110,14 @@ function define:get_game_status()
 end
 
 function define:set_game_status(val)
+    if val == 'game' then
+        love.audio.stop()
+        love.audio.play(gAudio['bg2'])
+    else
+        love.audio.stop()
+        love.audio.play(gAudio['bg1'])
+    end
+
     self.game_status = val
 end
 
