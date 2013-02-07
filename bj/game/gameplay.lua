@@ -48,6 +48,11 @@ function gameplay:enemies_logic(dt)
 
         for _, e in pairs(enemie_orders[r]) do
             if type(e) == 'table' then
+                if e.name == 'enemie1_animation' then
+                    e.img = "asfsa"..math.random(1000,9000)
+                    anim:create_anim(e.img, anim_enem, 139, 71, 'loop' ,0, 0)
+                end
+
                 local ee = enem:create_enemie(e.img,e.l,e.t,e.w,e.h,e.mx,e.my,e.life,e.damage)
                 ee.my = d
                 table.insert(enemies, ee)

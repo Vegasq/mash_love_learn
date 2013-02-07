@@ -2,7 +2,7 @@ local drawer = {}
 
 function drawer:init()
     bg = love.graphics.newImage("resources/images/bg/mirra.png")
-    bonus1 = love.graphics.newImage("resources/images/medic_anim1.png")
+    bonus1 = love.graphics.newImage("resources/images/medic_anim2.png")
     boom1 = love.graphics.newImage("resources/20030506.png")
     boom2 = love.graphics.newImage("resources/boom2.png")
     submarine = love.graphics.newImage("resources/s1.png")
@@ -11,6 +11,7 @@ function drawer:init()
     enem1 = love.graphics.newImage("resources/s2.png")
     enem2 = love.graphics.newImage("resources/s3.png")
     enem3 = love.graphics.newImage("resources/images/ships/spaceships2/Frigate.png")
+    anim_enem = love.graphics.newImage("resources/images/ships/enemie1.png")
     bullet = love.graphics.newImage("resources/bullet.png")
     bullet_img = love.graphics.newImage("resources/bullet.png")
 end
@@ -71,7 +72,15 @@ function drawer:enemies()
             if enemie_in_drawer.kicked > 0 then
                 love.graphics.setColor(255, 0, 0)
             end
-            draw(enemie_in_drawer['img'], enemie_in_drawer['l'], enemie_in_drawer['t'])
+            
+            if type(enemie_in_drawer['img']) == 'userdata' then
+                draw(enemie_in_drawer['img'], enemie_in_drawer['l'], enemie_in_drawer['t'])
+            end
+
+            if type(enemie_in_drawer['img']) == 'string' then
+                anim:draw(enemie_in_drawer.img, enemie_in_drawer.l, enemie_in_drawer.t)
+            end
+
             if enemie_in_drawer.kicked > 0 then
                 enemie_in_drawer.kicked = enemie_in_drawer.kicked - 1
                 love.graphics.setColor(255, 255, 255, 255)
@@ -89,15 +98,14 @@ function drawer:bullets()
         if bullet_in_drawer then
             _bc = _bc + 1
 
-            -- if bullet_in_drawer['l'] < 1366 or bullet_in_drawer['l'] > 0 or bullet_in_drawer['t'] > 0 or bullet_in_drawer['t'] < 768 then
 
                 if bullet_in_drawer['img'] == 'bullet1' then
                     draw(bullet_img, bullet_in_drawer['l'], bullet_in_drawer['t'])
                 else
-                    draw(bullet_in_drawer['img'], bullet_in_drawer['l'], bullet_in_drawer['t'])
+                    draw(bullet_in_drawer['img'], 
+                        bullet_in_drawer['l'], bullet_in_drawer['t'])
                 end 
 
-            -- end
         end
     end
     bullets_count = _bc

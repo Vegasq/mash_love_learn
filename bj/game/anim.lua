@@ -39,7 +39,15 @@ function anim:create_anim(name, anim_image, anim_frame_w, anim_frame_h, type ,x,
     return name
 end
 
-function anim:draw(name)
+function anim:draw(name, x, y)
+    if x ~= nil then
+        animations[name].x = x
+    end
+
+    if y ~= nil then
+        animations[name].y = y
+    end
+
     if animations[name] == nill 
         then return
     end
@@ -53,27 +61,29 @@ function anim:draw(name)
 
     local w_count = animations[name].w / animations[name].frame_width
     local h_count = animations[name].h / animations[name].frame_height
+    print(w_count, h_count)
 
     local status = true
 
     local line = math.ceil(animations[name].current_frame / w_count)
     local row = (line * w_count) - animations[name].current_frame
+    print(name, line, row, animations[name].current_frame , w_count)
 
     local www = line * animations[name].frame_width - animations[name].frame_width
     local hhh = row * animations[name].frame_height
 
-
     local q = love.graphics.newQuad(
-        hhh,
-        www,
+        animations[name].frame_width * animations[name].current_frame - animations[name].frame_width,
+        0,
         animations[name].frame_width,
         animations[name].frame_height,
         animations[name].w,
         animations[name].h
     )
-	love.graphics.drawq( animations[name].img, q, animations[name].x, animations[name].y, 0, 1, 1, 0, 0)
+	love.graphics.drawq( animations[name].img, q, 
+        animations[name].x, animations[name].y, 0, 1, 1, 0, 0)
 
-    if animations[name].current_frame > math.floor(w_count*h_count) then
+    if animations[name].current_frame >= math.floor(w_count*h_count) then
         if animations[name].type == 'loop' 
             then animations[name].current_frame = 1
         end

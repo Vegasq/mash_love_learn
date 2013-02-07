@@ -2,6 +2,7 @@ define = {}
 
 function define:init()
     gAudio = {}
+    love.audio.setVolume( 0.01 )
     gAudio['bang1'] = love.audio.newSource(
         'resources/music/machine_gun_223_caliber_single_shot_distant_bushmaster_ar_15.ogg', 'static')
     gAudio['bg1'] = love.audio.newSource(
@@ -43,7 +44,8 @@ function define:init()
     loop_counter['ptime'] = socket.gettime()*1000
 
     _fps = {draw=socket.gettime()*1000, update=socket.gettime()*1000}
-    player = {name='player', id=0, img=submarine, l=10, t=10, mx=false, my=false, w=128,h=87, life=5, time=false, kicked=0}
+    player = {name='player', id=0, img=submarine, l=10, t=10, 
+        mx=false, my=false, w=128,h=87, life=5, time=false, kicked=0}
     draw = love.graphics.draw
     font = love.graphics.newFont( 30 )
     font50 = love.graphics.newFont( 50 )
@@ -58,24 +60,33 @@ function define:init()
     levels[1].description = "You should destroy 100 enemies to switch to next level!"
     levels[1].bg = bg
     levels[1].bg_speed = 0.3
+
+
+
     levels[1].enemies = {
         {
             pos=99,
-            u1={name='1_in_tringle', id='1it', img=enem1, l=1566, t=100, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
-            u2={name='2_in_tringle', id='2it', img=enem2, l=1466, t=200, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
-            u3={name='3_in_tringle', id='3it', img=enem3, l=1366, t=300, mx=enem_speed, my=0, w=111,h=45, life=25, time=now_time, kicked=0, damage=5},
-            u4={name='4_in_tringle', id='4it', img=enem2, l=1466, t=400, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
-            u5={name='5_in_tringle', id='5it', img=enem1, l=1566, t=500, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
+            u6={name='enemie1_animation', id='5it', img=anim_enem, 
+                l=1566, t=600, mx=enem_speed, my=0, w=91,h=40, life=15, 
+                time=now_time, kicked=0, damage=5},
         },
         {
             pos=99,
-            u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, mx=enem_speed, my=0, w=111,h=45, life=30, time=now_time, kicked=0, damage=5},
-            u2={name='2_in_line', id='2il', img=enem2, l=1766, t=100, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
-            u3={name='3_in_line', id='3il', img=enem2, l=1966, t=100, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
+            u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, 
+                mx=enem_speed, my=0, w=111,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
+            u2={name='2_in_line', id='2il', img=enem2, l=1766, t=100, 
+                mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
+            u3={name='3_in_line', id='3il', img=enem2, l=1966, t=100, 
+                mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
         }
     }
-    levels[1].victory = {by_points=10, by_helth=200, by_time=180000, by_destroy='boss1', start_time=0}
-    levels[1].specOps = {by_points=100, by_helth=200, by_time=180000, who='boss1', start_time=0}
+    levels[1].victory = {by_points=10, by_helth=200, by_time=180000, 
+        by_destroy='boss1', start_time=0}
+    levels[1].specOps = {by_points=100, by_helth=200, by_time=180000, 
+        who='boss1', start_time=0}
 
 
 
@@ -87,21 +98,39 @@ function define:init()
     levels[2].enemies = {
         {
             pos=10,
-            u1={name='1_in_tringle', id='1it', img=enem1, l=1566, t=100, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
-            u2={name='2_in_tringle', id='2it', img=enem2, l=1466, t=200, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
-            u3={name='3_in_tringle', id='3it', img=enem3, l=1566, t=300, mx=enem_speed, my=0, w=111,h=45, life=25, time=now_time, kicked=0, damage=5},
-            u4={name='4_in_tringle', id='4it', img=enem2, l=1466, t=400, mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, kicked=0, damage=5},
-            u5={name='5_in_tringle', id='5it', img=enem1, l=1566, t=500, mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, kicked=0, damage=5},
+            u1={name='1_in_tringle', id='1it', img=enem1, l=1566, t=100, 
+                mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, 
+                kicked=0, damage=5},
+            u2={name='2_in_tringle', id='2it', img=enem2, l=1466, t=200, 
+                mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, 
+                kicked=0, damage=5},
+            u3={name='3_in_tringle', id='3it', img=enem3, l=1566, t=300, 
+                mx=enem_speed, my=0, w=111,h=45, life=25, time=now_time, 
+                kicked=0, damage=5},
+            u4={name='4_in_tringle', id='4it', img=enem2, l=1466, t=400, 
+                mx=enem_speed, my=0, w=130,h=45, life=20, time=now_time, 
+                kicked=0, damage=5},
+            u5={name='5_in_tringle', id='5it', img=enem1, l=1566, t=500, 
+                mx=enem_speed, my=0, w=91,h=40, life=15, time=now_time, 
+                kicked=0, damage=5},
         },
         {
             pos=30,
-            u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, mx=enem_speed, my=0, w=111,h=45, life=30, time=now_time, kicked=0, damage=5},
-            u2={name='2_in_line', id='2il', img=enem2, l=1766, t=200, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
-            u3={name='3_in_line', id='3il', img=enem2, l=1966, t=300, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
+            u1={name='1_in_line', id='1il', img=enem3, l=1566, t=100, 
+                mx=enem_speed, my=0, w=111,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
+            u2={name='2_in_line', id='2il', img=enem2, l=1766, t=200, 
+                mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
+            u3={name='3_in_line', id='3il', img=enem2, l=1966, t=300, 
+                mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, 
+                kicked=0, damage=5},
         }
     }
-    levels[2].victory = {by_points=200, by_helth=200, by_time=180000, by_destroy='boss1', start_time=0}
-    levels[2].specOps = {by_points=100, by_helth=200, by_time=180000, who='boss1', start_time=0}
+    levels[2].victory = {by_points=200, by_helth=200, by_time=180000, 
+        by_destroy='boss1', start_time=0}
+    levels[2].specOps = {by_points=100, by_helth=200, by_time=180000, 
+        who='boss1', start_time=0}
 
 end
 
