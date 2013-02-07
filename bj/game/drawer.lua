@@ -1,14 +1,15 @@
 local drawer = {}
 
 function drawer:init()
-    bg = love.graphics.newImage("resources/images/bg/spacefield_a-000.png")
+    bg = love.graphics.newImage("resources/images/bg/mirra.png")
     bonus1 = love.graphics.newImage("resources/images/medic_anim1.png")
     boom1 = love.graphics.newImage("resources/20030506.png")
     boom2 = love.graphics.newImage("resources/boom2.png")
-    submarine = love.graphics.newImage("resources/images/ships/spaceship_tut/spaceship_tut_modif.png")
+    submarine = love.graphics.newImage("resources/s1.png")
     enemie = love.graphics.newImage("resources/enemie.png")
-    enem1 = love.graphics.newImage("resources/images/ships/spaceships2/CorvetteC.png")
-    enem2 = love.graphics.newImage("resources/images/ships/spaceships2/DestroyerB.png")
+
+    enem1 = love.graphics.newImage("resources/s2.png")
+    enem2 = love.graphics.newImage("resources/s3.png")
     enem3 = love.graphics.newImage("resources/images/ships/spaceships2/Frigate.png")
     bullet = love.graphics.newImage("resources/bullet.png")
     bullet_img = love.graphics.newImage("resources/bullet.png")
@@ -16,7 +17,7 @@ end
 
 function drawer:bg()
     draw(gBackground.bg, gBackground.bg_counter, 0)
-    draw(gBackground.bg, gBackground.bg_counter + 2500, 0)
+    draw(gBackground.bg, gBackground.bg_counter + gBackground.bg:getWidth(), 0)
 end
 
 function drawer:player()

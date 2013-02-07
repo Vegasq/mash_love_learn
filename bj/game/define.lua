@@ -74,7 +74,7 @@ function define:init()
             u3={name='3_in_line', id='3il', img=enem2, l=1966, t=100, mx=enem_speed, my=0, w=130,h=45, life=30, time=now_time, kicked=0, damage=5},
         }
     }
-    levels[1].victory = {by_points=100, by_helth=200, by_time=180000, by_destroy='boss1', start_time=0}
+    levels[1].victory = {by_points=10, by_helth=200, by_time=180000, by_destroy='boss1', start_time=0}
     levels[1].specOps = {by_points=100, by_helth=200, by_time=180000, who='boss1', start_time=0}
 
 
